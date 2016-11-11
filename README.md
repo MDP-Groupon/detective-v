@@ -29,6 +29,12 @@ Next, migrate the database:
 
 	$ rake db:migrate RAILS_ENV=development
 
+Generate Tokens:
+
+To configure the Github API, [create a personal access token](https://github.com/settings/tokens/new) and [generate an OAuth key pair](https://github.com/settings/applications/new).
+
+Copy both the access token and client key/secret to config/settings.yml
+
 If the test suite passes, you'll be ready to run the app in a local server:
 
 	$ rails server
