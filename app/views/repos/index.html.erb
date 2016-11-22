@@ -2,11 +2,28 @@
 
 <%= javascript_tag do %>
 	window.onload = function() {
-    if(!window.location.hash) {
-        window.location = window.location + '#loaded';
-        window.location.reload();
-    }
+	    if(!window.location.hash) {
+	        window.location = window.location + '#loaded';
+	        window.location.reload();
+	    }
 	}
+
+	function selectAll() {
+		$(':checkbox').each(function() {
+	           this.checked = true;                     
+	    });
+	    $("input.selectButton").addClass("hidden");
+	    $("input.deselectButton").removeClass("hidden");
+	}
+
+	function deselectAll() {
+		$(':checkbox').each(function() {
+	        this.checked = false;                        
+	    });
+	    $("input.deselectButton").addClass("hidden");
+	    $("input.selectButton").removeClass("hidden");
+	}
+	
 <% end %>
 
 <div class="overlay">
@@ -20,6 +37,8 @@
 	<h4>Select from the following list to scan for dependencies.</h4>
 
 	<% if current_user && ((Repo.where(user_id: current_user.id).size()) > 0) %>
+	
+	<br>
 		<table class="table">
 			<%= form_tag(actions_path, :method => 'post') do %>
 				<% @repos.each do |repo| %>
@@ -28,10 +47,14 @@
 					<td><%= repo.owner + "/" + repo.name %></td>
 				</tr>
 				<% end %>
-				<%= submit_tag "Delete", name: 'delete', :class => "btn btn-default", 'data-disable-with' => "Delete" %>
 				<%= submit_tag "Scan Selected", name: 'scan', :id => "scan-button", :class => "btn btn-default", 'data-disable-with' => "Scan Selected" %>
+				<%= submit_tag "Delete", name: 'delete', :class => "btn btn-default", 'data-disable-with' => "Delete" %>
+				
 			<% end %>
 		</table>
+		<%= submit_tag 'Select All', class: "selectButton btn btn-default", :onclick => "selectAll()" %>
+		<%= submit_tag 'Deselect All', class: "deselectButton btn hidden btn-default", :onclick => "deselectAll()" %>
+
 	<% else %>
 		<p>You currently have no repositories to scan.</p>
 	<% end %>
