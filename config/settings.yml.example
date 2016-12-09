@@ -1,0 +1,14 @@
+github:
+  api_access_token:
+  GITHUB_KEY:
+  GITHUB_SECRET:
+pipeline:
+  npm_registry: https://registry.npmjs.org/
+  tasks_for:
+    Ruby: BundleAudit,Brakeman,DawnScanner
+    JavaScript: NPM,RetireJS,NodeSecurityProject,Snyk
+    CoffeeScript: NPM,RetireJS,NodeSecurityProject,Snyk
+    Java: PMD,FindSecurityBugs,OWASPDependencyCheck
+  pmd_path: /path/to/pmd
+  findsecbugs_path: /path/to/findsecbugs
+  depcheck_path: /path/to/OWASPDependencyCheck
